@@ -55,7 +55,7 @@ exit program.
 
 `bye`
 
-## How to build and run
+## How to build and run it
 
 You can just type this command at the root project folder to build it.
 
