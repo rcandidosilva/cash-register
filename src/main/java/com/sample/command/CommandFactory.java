@@ -2,6 +2,9 @@ package com.sample.command;
 
 import com.sample.exception.WrongCommandException;
 
+/**
+ * Factory of the application commands.
+ */
 public class CommandFactory {
 
     public static Command createCommand(CommandType type) throws WrongCommandException {

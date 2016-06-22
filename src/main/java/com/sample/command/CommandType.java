@@ -2,6 +2,9 @@ package com.sample.command;
 
 import com.sample.command.impl.*;
 
+/**
+ * Defines all the supported commands from this application
+ */
 public enum CommandType {
 
     SHOW(ShowCommand.class, "show"),
