@@ -54,3 +54,15 @@ exit program.
 `> quit`
 
 `bye`
+
+## How to build and run
+
+You can just type this command at the root project folder to build it.
+
+    gradle build
+
+Then you can navigate to the "build/libs" folder and execute the following JAR command line.
+
+    java -jar cash-register-X.X.X.jar
+    
+    

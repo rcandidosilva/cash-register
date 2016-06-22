@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 /**
  * Represents the cash note model
- *
- * @author rcandidosilva@gmail.com
  */
 public class CashNote implements Serializable {
 
@@ -32,13 +30,13 @@ public class CashNote implements Serializable {
         this.quantity = quantity;
     }
 
-    public int getTotalInSLot() {
+    public int getTotal() {
         return amount * quantity;
     }
 
     public int add(int quantity) {
         this.quantity = this.quantity + quantity;
-        return getTotalInSLot();
+        return getTotal();
     }
 
     public void remove(int quantity) {
@@ -46,7 +44,7 @@ public class CashNote implements Serializable {
         if (this.quantity < 0 ) this.quantity = 0;
     }
 
-    public boolean isValidRemove(int quantity) {
+    public boolean hasQuantity(int quantity) {
         return this.quantity >= quantity;
     }
 

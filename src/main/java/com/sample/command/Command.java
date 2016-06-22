@@ -10,10 +10,10 @@ public interface Command {
     /**
      * Abstract execute command to be implemented by different commands.
      *
-     * @param input
      * @param cash
+     * @param input
      * @throws Exception
      */
-    void execute(String[] input, CashRegister cash) throws Exception;
+    String execute(CashRegister cash, String... input) throws Exception;
 
 }

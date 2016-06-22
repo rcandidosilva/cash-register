@@ -2,6 +2,7 @@ group 'com.rocketmilles.sample'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -11,5 +12,11 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile("junit:junit:4.12")
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'com.sample.App'
+    }
 }

@@ -1,26 +1,26 @@
 package com.sample.command.impl;
 
-import com.sample.model.CashRegister;
 import com.sample.command.Command;
-import com.rocketmiles.sample.exception.BaseException;
+import com.sample.command.CommandFactory;
+import com.sample.command.CommandType;
 import com.sample.exception.InvalidAmountException;
 import com.sample.exception.InvalidInputException;
 import com.sample.exception.NoChangeException;
-import com.sample.command.CommandFactory;
-import com.sample.command.CommandType;
+import com.sample.model.CashRegister;
 
-import static com.sample.command.CommandFactory.createCommand;
-
+/**
+ * Represents the CHANGE command to be processed by the application
+ */
 public class ChangeCommand implements Command {
 
     @Override
-    public void execute(String[] input, CashRegister cash) throws BaseException {
+    public String execute(CashRegister cash, String... input) throws Exception {
         try {
-            int value = Integer.parseInt(input[1]);
-            if (input.length > 2) throw new Exception();
+            int value = Integer.parseInt(input[0]);
+            if (input.length > 1) throw new Exception();
             CashRegister result = cash.processChange(value);
 
-            CommandFactory.createCommand(CommandType.SHOW).execute(input, result);
+            return CommandFactory.createCommand(CommandType.SHOW).execute(result, input);
 
         } catch (InvalidAmountException | NoChangeException e) {
             throw e;

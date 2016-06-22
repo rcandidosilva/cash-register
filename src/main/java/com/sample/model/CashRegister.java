@@ -10,8 +10,6 @@ import java.util.List;
 
 /**
  * Represents the cash register model
- *
- * @author rcandidosilva@gmail.com
  */
 public class CashRegister implements Serializable {
 
@@ -26,6 +24,7 @@ public class CashRegister implements Serializable {
 
     /**
      * Returns the singleton instance from the cash register
+     *
      * @return
      */
     public static CashRegister getInstance() {
@@ -51,7 +50,11 @@ public class CashRegister implements Serializable {
      * @return
      */
     public int getTotal() {
-        return notes.stream().mapToInt(CashNote::getTotalInSLot).sum();
+        return notes.stream().mapToInt(CashNote::getTotal).sum();
+    }
+
+    public void reset() {
+        notes.stream().forEach(note -> note.setQuantity(0));
     }
 
     /**
@@ -68,7 +71,7 @@ public class CashRegister implements Serializable {
         }
     }
 
-    public void add(CashRegister cashToRemove) {
+    private void add(CashRegister cashToRemove) {
         for (int i = 0; i < notes.size(); i++) {
             notes.get(i).add(cashToRemove.getNotes().get(i).getQuantity());
         }
@@ -85,7 +88,7 @@ public class CashRegister implements Serializable {
         if (args.length != notes.size()) throw new InvalidArgumentException();
         if (!validate(args)) throw new InvalidAmountException();
         for (int i = 0; i < notes.size(); i++) {
-            notes.get(i).remove(args[i++]);
+            notes.get(i).remove(args[i]);
         }
     }
 
@@ -97,7 +100,7 @@ public class CashRegister implements Serializable {
      */
     private boolean validate(int... args) {
         for (int i = 0; i < args.length; i++) {
-            if (!notes.get(i).isValidRemove(args[i])) {
+            if (!notes.get(i).hasQuantity(args[i])) {
                 return false;
             }
         }
@@ -128,17 +131,10 @@ public class CashRegister implements Serializable {
         return cashback;
     }
 
-    /**
-     *
-     * @param moneySlot
-     * @param totalToRemove
-     * @param moneyRemovedSlot
-     * @return
-     */
     private int removeFromSlot(CashNote moneySlot, int totalToRemove, CashNote moneyRemovedSlot) {
         if (totalToRemove == 0) return totalToRemove;
 
-        if ((totalToRemove - moneySlot.getAmount()) < 0 || (moneySlot.getTotalInSLot() - moneySlot.getAmount()) < 0)
+        if ((totalToRemove - moneySlot.getAmount()) < 0 || (moneySlot.getTotal() - moneySlot.getAmount()) < 0)
             return totalToRemove;
         totalToRemove = totalToRemove - moneySlot.getAmount();
         moneySlot.remove(1);

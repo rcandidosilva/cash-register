@@ -1,31 +1,31 @@
 package com.sample.command.impl;
 
 import com.sample.command.Command;
-import com.rocketmiles.sample.exception.BaseException;
+import com.sample.command.CommandFactory;
+import com.sample.command.CommandType;
 import com.sample.exception.InvalidAmountException;
 import com.sample.exception.InvalidArgumentException;
 import com.sample.exception.InvalidInputException;
 import com.sample.model.CashRegister;
-import com.sample.command.CommandFactory;
-import com.sample.command.CommandType;
 
-import static com.sample.command.CommandFactory.createCommand;
-
+/**
+ * Represents the TAKE command to be processed by the application
+ */
 public class TakeCommand implements Command {
 
     @Override
-    public void execute(String[] input, CashRegister cash) throws BaseException {
+    public String execute(CashRegister cash, String... input) throws Exception {
         try {
 
-            int value20 = Integer.parseInt(input[1]);
-            int value10 = Integer.parseInt(input[2]);
-            int value5 = Integer.parseInt(input[3]);
-            int value2 = Integer.parseInt(input[4]);
-            int value1 = Integer.parseInt(input[5]);
+            int value20 = Integer.parseInt(input[0]);
+            int value10 = Integer.parseInt(input[1]);
+            int value5 = Integer.parseInt(input[2]);
+            int value2 = Integer.parseInt(input[3]);
+            int value1 = Integer.parseInt(input[4]);
 
             cash.remove(value20, value10, value5, value2, value1);
 
-            CommandFactory.createCommand(CommandType.SHOW).execute(input, cash);
+            return CommandFactory.createCommand(CommandType.SHOW).execute(cash, input);
 
         } catch (InvalidArgumentException | InvalidAmountException e) {
             throw e;

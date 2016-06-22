@@ -4,18 +4,19 @@ import com.sample.model.CashRegister;
 import com.sample.model.CashNote;
 import com.sample.command.Command;
 
+/**
+ * Represents the SHOW command to be processed by the application
+ */
 public class ShowCommand implements Command {
 
     @Override
-    public void execute(String[] input, CashRegister cash) {
+    public String execute(CashRegister cash, String... input) {
         StringBuilder sb = new StringBuilder();
-        sb.append("$");
-        sb.append(cash.getTotal());
-        sb.append(" ");
+        sb.append("$").append(cash.getTotal()).append(" ");
         for (CashNote m : cash.getNotes()) {
             sb.append(m.getQuantity()).append(" ");
         }
-        System.out.println(sb.toString().trim());
+        return sb.toString().trim();
     }
 
 }

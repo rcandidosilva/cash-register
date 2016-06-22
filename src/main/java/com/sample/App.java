@@ -6,6 +6,7 @@ import com.sample.exception.InvalidInputException;
 import com.sample.exception.WrongCommandException;
 import com.sample.model.CashRegister;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class App {
@@ -27,7 +28,9 @@ public class App {
                 try {
                     // create and execute the specific command informed.
                     Command command = CommandFactory.createCommand(actionCommand);
-                    command.execute(arguments, CashRegister.getInstance());
+                    String message = command.execute(CashRegister.getInstance(),
+                            Arrays.copyOfRange(arguments, 1, arguments.length));
+                    System.out.println(message);
                 } catch (WrongCommandException ex) {
                     System.out.println(ex.getMessage());
                 }
